@@ -7,6 +7,7 @@ using System.Linq;
 using System.Net;
 using System.Reflection;
 using System.Security;
+using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
@@ -18,9 +19,12 @@ namespace SeachWords
         static async Task Main(string[] args)
         {
             TextWriter log = new StreamWriter(@"C:\Users\v-yangtian\Downloads\log.txt");
-            string html = await HttpRequestHelper.RequestUrl("http://www.restaurantweekboston.com/?neighborhood=all&meal=all&cuisine=all&view=all");
-            var htmlDoc = new HtmlDocument();
-            htmlDoc.LoadHtml(html);
+            //string html = await HttpRequestHelper.RequestUrl("http://www.restaurantweekboston.com/?neighborhood=all&meal=all&cuisine=all&view=all");
+            //var htmlDoc = new HtmlDocument();
+            //htmlDoc.LoadHtml(html);
+
+            HtmlWeb htmlWeb = new HtmlWeb();
+            HtmlDocument htmlDoc = htmlWeb.Load("http://www.restaurantweekboston.com/?neighborhood=all&meal=all&cuisine=all&view=all");
 
             List<string> list = new List<string>();
             var nodes = htmlDoc.DocumentNode.SelectNodes("/html/body/div[2]/div[1]/div[2]/div[1]/div[3]/div[2]/div[3]/div/div[1]/h4/a[1]");
